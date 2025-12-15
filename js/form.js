@@ -16,7 +16,6 @@ const bigger = uploadForm.querySelector('.scale__control--bigger');
 let scale = 1;
 
 uploadInput.addEventListener('change', onfileInputChange);
-
 const onImageCloseButtonClick = () => {
   closePhotoEditor();
 };
