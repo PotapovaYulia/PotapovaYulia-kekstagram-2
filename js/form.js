@@ -1,25 +1,19 @@
 import { resetFilter } from './slider.js';
 import { pristine } from './hastag-validity.js';
-export const uploadForm = document.querySelector('.img-upload__form');
+const FILE_TYPES = ['.jpg', '.jpeg', '.png', '.gif'];
+const SCALE_STEP = 0.25;
+const uploadForm = document.querySelector('.img-upload__form');
 const uploadInput = uploadForm.querySelector('.img-upload__input');
 const editingForm = uploadForm.querySelector('.img-upload__overlay');
 const pageBody = document.querySelector('body');
 const imageCloseButton = document.querySelector('.img-upload__cancel');
 const hashtagInput = document.querySelector('.text__hashtags');
 const commentInput = document.querySelector('.text__description');
-// const imageOpenButton = document.querySelector('#upload-file');
-const FILE_TYPES = ['.jpg', '.jpeg', '.png', '.gif'];
-const SCALE_STEP = 0.25;
-let scale = 1;
 const img = uploadForm.querySelector('.img-upload__preview img');
 const scaleControl = uploadForm.querySelector('.scale__control--value');
 const smaller = uploadForm.querySelector('.scale__control--smaller');
 const bigger = uploadForm.querySelector('.scale__control--bigger');
-/*1.2. Выбор изображения для загрузки осуществляется с помощью стандартного контрола загрузки файла
- .img-upload__input, который стилизован под букву «О» в логотипе.
- После выбора изображения (изменения значения поля .img-upload__input),
- показывается форма редактирования изображения.
- У элемента .img-upload__overlay удаляется класс hidden, а body задаётся класс modal-open.*/
+let scale = 1;
 
 uploadInput.addEventListener('change', onfileInputChange);
 
@@ -36,17 +30,13 @@ const onEscKeydown = (evt) => {
   }
 };
 
-function openPhotoEditor() {
+const openPhotoEditor = () => {
   editingForm.classList.remove('hidden');
   pageBody.classList.add('modal-open');
   imageCloseButton.addEventListener('click', onImageCloseButtonClick);
   document.addEventListener('keydown', onEscKeydown);
   resetFilter();
-}
-
-/* 1.3 Закрытие формы редактирования изображения производится либо нажатием на кнопку .img-upload__cancel,
- либо нажатием клавиши Esc. Элементу .img-upload__overlay возвращается класс hidden.
-  У элемента body удаляется класс modal-open.*/
+};
 
 function closePhotoEditor() {
   editingForm.classList.add('hidden');
@@ -60,9 +50,7 @@ function closePhotoEditor() {
   img.src = 'img/upload-default-image.jpg'; // <--- ДОБАВЬТЕ ЭТУ СТРОКУ
   resetFilter();
 }
-/* Напишите код, который позволит пользователю редактировать масштаб изображения.
-Кроме визуального применения эффекта необходимо записывать значение в поле формы с масштабом, доступное
- только для чтения, для дальнейшей отправки на сервер.*/
+
 const onSmallerClick = () => {
   if (scale > SCALE_STEP) {
     scale -= SCALE_STEP;
@@ -115,3 +103,4 @@ function onfileInputChange() {
   }
 
 }
+export { uploadForm };

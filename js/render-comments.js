@@ -1,7 +1,6 @@
 const COUNT_STEP = 5;
 let currentCount = 0;
 let comments = [];
-
 const bigPicture = document.querySelector('.big-picture');
 const socialComments = bigPicture.querySelector('.social__comments');
 const socialCommentTemplate = socialComments.querySelector('.social__comment');
@@ -9,7 +8,6 @@ const commentsCount = bigPicture.querySelector('.social__comment-count');
 const commentsShownNode = commentsCount.querySelector('.social__comment-shown-count');
 const commentsTotalNode = commentsCount.querySelector('.social__comment-total-count');
 const commentsLoader = bigPicture.querySelector('.social__comments-loader');
-
 socialComments.innerHTML = '';
 
 const renderNextComments = () => {

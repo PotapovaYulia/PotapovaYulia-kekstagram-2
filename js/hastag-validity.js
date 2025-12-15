@@ -1,9 +1,9 @@
-const uploadForm = document.querySelector('.img-upload__form');
-export const hashtagInput = document.querySelector('.text__hashtags');
-const commentInput = document.querySelector('.text__description');
 const MAX_HASHTAGS = 5;
 const MAX_SYMBOLS = 20;
 const MAX_COMMENT_SYMBOLS = 140;
+const uploadForm = document.querySelector('.img-upload__form');
+const hashtagInput = document.querySelector('.text__hashtags');
+const commentInput = document.querySelector('.text__description');
 let errorMessage = '';
 
 const error = () => errorMessage;
@@ -79,3 +79,4 @@ commentPristine.addValidator(commentInput, (value) => {
   return value.length <= MAX_COMMENT_SYMBOLS;
 }, 'Длина комментария не должна превышать 140 символов');
 
+export { hashtagInput };

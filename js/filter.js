@@ -11,7 +11,7 @@ const FILTER = {
 
 let currentFilter = FILTER.default;
 const debounceRender = debounce(renderThumbnails);
-function onFilterChange(evt) {
+function FilterChange(evt) {
   const targetButton = evt.target;
   const activeButton = document.querySelector(`.${ACTIVE_BUTTON_CLASS}`);
   if (!targetButton.matches('button')) {
@@ -41,7 +41,7 @@ function applyFilter() {
 }
 function configFilter(picturesData) {
   filterElement.classList.remove('img-filters--inactive');
-  filterElement.addEventListener('click', onFilterChange);
+  filterElement.addEventListener('click', FilterChange);
   pictures = picturesData;
 }
 export { configFilter };

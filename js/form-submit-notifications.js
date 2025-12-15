@@ -1,13 +1,13 @@
-const editingForm = document.querySelector('.img-upload__overlay');
-const uploadInput = document.querySelector('#upload-file');
 import { sendData } from './api.js';
 import { uploadForm } from './form.js';
 import { pristine } from './hastag-validity.js';
+const editingForm = document.querySelector('.img-upload__overlay');
+const uploadInput = document.querySelector('#upload-file');
 const body = document.querySelector('body');
 const hashtagInput = document.querySelector('.text__hashtags');
 const commentInput = document.querySelector('.text__description');
 
-export function closePhotoEditor() {
+function closePhotoEditor() {
   editingForm.classList.add('hidden');
   document.body.classList.remove('modal-open');
   uploadInput.value = '';
@@ -60,11 +60,9 @@ const sendFormData = async (formElement) => {
     try {
       await sendData(new FormData(formElement));
       appendNotification(templateSucces, () => closePhotoEditor());
-    }
-    catch (errors) {
+    } catch (errors) {
       appendNotification(templateError);
-    }
-    finally {
+    } finally {
       enabledButton(submitButtonText.IDLE);
     }
 
@@ -76,4 +74,4 @@ const formSubmitHandler = (evt) => {
 };
 uploadForm.addEventListener('submit', formSubmitHandler);
 
-
+export { closePhotoEditor };
