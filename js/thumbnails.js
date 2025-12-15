@@ -1,9 +1,11 @@
 const templateFragment = document.querySelector('#picture').content.querySelector('.picture');
+
 export const container = document.querySelector('.pictures');
 
 export const createThumbnail = (photo) => {
   const thumbnail = templateFragment.cloneNode(true);
   thumbnail.dataset.pictureId = photo.id;
+
   const image = thumbnail.querySelector('.picture__img');
   image.src = photo.url;
   image.alt = photo.description;
