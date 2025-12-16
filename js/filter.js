@@ -1,6 +1,5 @@
 import { renderThumbnails } from './thumbnails';
 import { debounce } from './util';
-let pictures = [];
 const filterElement = document.querySelector('.img-filters');
 const ACTIVE_BUTTON_CLASS = 'img-filters__button--active';
 const FILTER = {
@@ -8,10 +7,10 @@ const FILTER = {
   random:'filter-random',
   discussed:'filter-discussed',
 };
-
+let pictures = [];
 let currentFilter = FILTER.default;
 const debounceRender = debounce(renderThumbnails);
-function FilterChange(evt) {
+function onFilterButtonClick(evt) {
   const targetButton = evt.target;
   const activeButton = document.querySelector(`.${ACTIVE_BUTTON_CLASS}`);
   if (!targetButton.matches('button')) {
@@ -41,7 +40,7 @@ function applyFilter() {
 }
 function configFilter(picturesData) {
   filterElement.classList.remove('img-filters--inactive');
-  filterElement.addEventListener('click', FilterChange);
+  filterElement.addEventListener('click', onFilterButtonClick);
   pictures = picturesData;
 }
 export { configFilter };

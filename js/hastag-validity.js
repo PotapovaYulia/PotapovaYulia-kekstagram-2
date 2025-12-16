@@ -6,7 +6,7 @@ const hashtagInput = document.querySelector('.text__hashtags');
 const commentInput = document.querySelector('.text__description');
 let errorMessage = '';
 
-const error = () => errorMessage;
+const isError = () => errorMessage;
 const isHashtagValid = (value) => {
   errorMessage = '';
   const inputText = value.toLowerCase().trim();
@@ -15,35 +15,35 @@ const isHashtagValid = (value) => {
     return true;
   }
 
-  const inputArray = inputText.split(/\s+/);
+  const inputsArray = inputText.split(/\s+/);
 
   const rules = [
     {
-      check: inputArray.some((item) => item === '#'),
+      check: inputsArray.some((item) => item === '#'),
       error: 'Хештег не может состоять только из одной решетки',
     },
     {
-      check: inputArray.some((item) => item.slice(1).includes('#')),
+      check: inputsArray.some((item) => item.slice(1).includes('#')),
       error: 'Хештеги разделяются пробелами',
     },
     {
-      check: inputArray.some((item) => item[0] !== '#'),
+      check: inputsArray.some((item) => item[0] !== '#'),
       error: 'Хештег должен начинаться с символа \'#\'',
     },
     {
-      check: inputArray.some((item, num, array) => array.includes(item, num + 1)),
+      check: inputsArray.some((item, num, array) => array.includes(item, num + 1)),
       error: 'Хештеги не должны повторяться',
     },
     {
-      check: inputArray.some((item) => item.length > MAX_SYMBOLS),
+      check: inputsArray.some((item) => item.length > MAX_SYMBOLS),
       error: `Максимальная длинна одного хештега ${MAX_SYMBOLS} сиволов включая решетку`,
     },
     {
-      check: inputArray.length > MAX_HASHTAGS,
+      check: inputsArray.length > MAX_HASHTAGS,
       error: `Нельзя указать больше ${MAX_HASHTAGS} хештегов`,
     },
     {
-      check: inputArray.some((item) => !/^#[a-zа-яё0-9]{1,19}$/i.test(item)),
+      check: inputsArray.some((item) => !/^#[a-zа-яё0-9]{1,19}$/i.test(item)),
       error: 'Хештег содержит недопустимые символы',
     },
   ];
@@ -63,7 +63,7 @@ export const pristine = new Pristine(uploadForm, {
   errorTextParent: 'img-upload__field-wrapper',
 
 });
-pristine.addValidator(hashtagInput, isHashtagValid, error, 2, false);
+pristine.addValidator(hashtagInput, isHashtagValid, isError, 2, false);
 
 const commentPristine = new Pristine(commentInput, {
   classTo: 'text__description',

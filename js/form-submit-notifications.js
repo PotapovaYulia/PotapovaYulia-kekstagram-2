@@ -1,20 +1,7 @@
 import { sendData } from './api.js';
-import { uploadForm } from './form.js';
+import { closePhotoEditor, uploadForm } from './form.js';
 import { pristine } from './hastag-validity.js';
-const editingForm = document.querySelector('.img-upload__overlay');
-const uploadInput = document.querySelector('#upload-file');
 const body = document.querySelector('body');
-const hashtagInput = document.querySelector('.text__hashtags');
-const commentInput = document.querySelector('.text__description');
-
-function closePhotoEditor() {
-  editingForm.classList.add('hidden');
-  document.body.classList.remove('modal-open');
-  uploadInput.value = '';
-  hashtagInput.value = '';
-  commentInput.value = '';
-  pristine.reset();
-}
 const formSubmitButton = document.querySelector('.img-upload__submit');
 const submitButtonText = {
   IDLE: 'Сохранить',
@@ -35,23 +22,34 @@ const enabledButton = (text) => {
 
 const templateSucces = document.querySelector('#success').content;
 const templateError = document.querySelector('#error').content;
-const closeNotification = (evt) => {
+
+const onNotificationClick = (evt) => {
   evt.stopPropagation();
   const existElement = document.querySelector('.success') || document.querySelector('.error');
   const closeButton = existElement.querySelector('button');
-  if (evt.target === existElement || evt.target === closeButton || evt.key === 'Escape' || evt.key === 'Esc') {
+  if (evt.target === existElement || evt.target === closeButton) {
     existElement.remove();
-    body.removeEventListener('click', closeNotification);
-    body.removeEventListener('keydown', closeNotification);
+    body.removeEventListener('click', onNotificationClick);
+  }
+
+};
+const onNotificationEsc = (evt) => {
+  evt.stopPropagation();
+  const existElement = document.querySelector('.success') || document.querySelector('.error');
+
+  if (evt.key === 'Escape' || evt.key === 'Esc') {
+    existElement.remove();
+    body.removeEventListener('keydown', onNotificationEsc);
   }
 };
+
 
 const appendNotification = (template, trigger = null) => {
   trigger?.();
   const notificationNode = template.cloneNode(true);
   body.append(notificationNode);
-  body.addEventListener('click', closeNotification);
-  body.addEventListener('keydown', closeNotification);
+  body.addEventListener('click', onNotificationClick);
+  body.addEventListener('keydown', onNotificationEsc);
 };
 const sendFormData = async (formElement) => {
   const isValid = pristine.validate();
@@ -68,10 +66,10 @@ const sendFormData = async (formElement) => {
 
   }
 };
-const formSubmitHandler = (evt) => {
+const onFormSubmit = (evt) => {
   evt.preventDefault();
   sendFormData(evt.target);
 };
-uploadForm.addEventListener('submit', formSubmitHandler);
+uploadForm.addEventListener('submit', onFormSubmit);
 
-export { closePhotoEditor };
+

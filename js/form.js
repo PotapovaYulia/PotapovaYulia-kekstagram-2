@@ -28,28 +28,6 @@ const onEscKeydown = (evt) => {
     closePhotoEditor();
   }
 };
-
-const openPhotoEditor = () => {
-  editingForm.classList.remove('hidden');
-  pageBody.classList.add('modal-open');
-  imageCloseButton.addEventListener('click', onImageCloseButtonClick);
-  document.addEventListener('keydown', onEscKeydown);
-  resetFilter();
-};
-
-function closePhotoEditor() {
-  editingForm.classList.add('hidden');
-  pageBody.classList.remove('modal-open');
-  imageCloseButton.removeEventListener('click', onImageCloseButtonClick);
-  document.removeEventListener('keydown', onEscKeydown);
-  uploadInput.value = '';
-  hashtagInput.value = '';
-  commentInput.value = '';
-  pristine.reset();
-  img.src = 'img/upload-default-image.jpg'; // <--- ДОБАВЬТЕ ЭТУ СТРОКУ
-  resetFilter();
-}
-
 const onSmallerClick = () => {
   if (scale > SCALE_STEP) {
     scale -= SCALE_STEP;
@@ -64,8 +42,31 @@ const onBiggerClick = () => {
     scaleControl.value = `${scale * 100}%`;
   }
 };
-smaller.addEventListener('click', onSmallerClick);
-bigger.addEventListener('click', onBiggerClick);
+const openPhotoEditor = () => {
+  editingForm.classList.remove('hidden');
+  pageBody.classList.add('modal-open');
+  imageCloseButton.addEventListener('click', onImageCloseButtonClick);
+  document.addEventListener('keydown', onEscKeydown);
+  bigger.addEventListener('click', onBiggerClick);
+  smaller.addEventListener('click', onSmallerClick);
+  resetFilter();
+};
+
+function closePhotoEditor() {
+  editingForm.classList.add('hidden');
+  pageBody.classList.remove('modal-open');
+  imageCloseButton.removeEventListener('click', onImageCloseButtonClick);
+  document.removeEventListener('keydown', onEscKeydown);
+  uploadInput.value = '';
+  hashtagInput.value = '';
+  commentInput.value = '';
+  pristine.reset();
+  img.src = 'img/upload-default-image.jpg';
+  smaller.removeEventListener('click', onSmallerClick);
+  bigger.removeEventListener('click', onBiggerClick);
+  scale = 1;
+  resetFilter();
+}
 
 
 function showError(errMessage) {
@@ -102,4 +103,4 @@ function onfileInputChange() {
   }
 
 }
-export { uploadForm };
+export { uploadForm, closePhotoEditor };
