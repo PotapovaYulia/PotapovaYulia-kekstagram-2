@@ -1,3 +1,4 @@
+const REMOVE_MESSAGE_TIMEOUT = 5000;
 export const getRandomInteger = (a, b) => {
   const lower = Math.ceil(Math.min(a, b));
   const upper = Math.floor(Math.max(a, b));
@@ -13,6 +14,9 @@ export const getUniqueId = (min, max, usedIds) => {
   usedIds.push(id);
   return id;
 };
+
+const body = document.body;
+
 
 const errorTemplate = document.querySelector('#data-error');
 
