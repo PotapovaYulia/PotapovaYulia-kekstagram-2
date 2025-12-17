@@ -1,12 +1,12 @@
 import { renderThumbnails } from './thumbnails';
 import { debounce } from './util';
-const filterElement = document.querySelector('.img-filters');
 const ACTIVE_BUTTON_CLASS = 'img-filters__button--active';
 const FILTER = {
   default: 'filter-default',
   random:'filter-random',
   discussed:'filter-discussed',
 };
+const filterElement = document.querySelector('.img-filters');
 let pictures = [];
 let currentFilter = FILTER.default;
 const debounceRender = debounce(renderThumbnails);

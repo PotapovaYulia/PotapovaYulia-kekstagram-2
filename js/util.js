@@ -14,11 +14,6 @@ export const getUniqueId = (min, max, usedIds) => {
   return id;
 };
 
-export const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
-const REMOVE_MESSAGE_TIMEOUT = 5000;
-const body = document.body;
-
-
 const errorTemplate = document.querySelector('#data-error');
 
 export const showErrorMessage = (message) => {

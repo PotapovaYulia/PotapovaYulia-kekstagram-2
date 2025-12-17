@@ -31,7 +31,7 @@ const isHashtagValid = (value) => {
       error: 'Хештег должен начинаться с символа \'#\'',
     },
     {
-      check: inputsArray.some((item, num, array) => array.includes(item, num + 1)),
+      check: inputsArray.some((item, num, arrays) => arrays.includes(item, num + 1)),
       error: 'Хештеги не должны повторяться',
     },
     {
